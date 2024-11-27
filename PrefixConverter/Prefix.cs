@@ -38,4 +38,24 @@ public class Prefix : ConverterBase
         }
         return myStack.Pop();
     }
+
+    public string CalculateResult(string input)
+    {
+        string[] inputs = input.Split(' ');
+        Stack<string> myStack = new();
+        for (int i = inputs.Length - 1; i >= 0; i--)
+        {
+            if (IsOperator(inputs[i]))
+            {
+                string operand1 = myStack.Pop();
+                string operand2 = myStack.Pop();
+
+                myStack.Push(Calculate(inputs[i], operand1, operand2).ToString());
+            }
+            else
+                myStack.Push(inputs[i]);
+        }
+
+        return myStack.Pop();
+    }
 }

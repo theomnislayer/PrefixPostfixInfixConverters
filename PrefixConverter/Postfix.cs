@@ -37,4 +37,24 @@ public class Postfix : ConverterBase
         }
         return myStack.Pop();
     }
+
+    public string CalculateResult(string input)
+    {
+        string[] inputs = input.Split(' ');
+        Stack<string> myStack = new();
+        for (int i = 0; i <= inputs.Length - 1; i++)
+        {
+            if (IsOperator(inputs[i]))
+            {
+                string operand1 = myStack.Pop();
+                string operand2 = myStack.Pop();
+
+                myStack.Push(Calculate(inputs[i], operand2, operand1).ToString());
+            }
+            else
+                myStack.Push(inputs[i]);
+        }
+
+        return myStack.Pop();
+    }
 }
