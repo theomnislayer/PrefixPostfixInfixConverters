@@ -2,40 +2,44 @@
 
 public class Postfix : ConverterBase
 {
-    Stack<string> myStack = new();
-    
     public string ToPrefix(string input)
     {
-        for (int i = 0; i < input.Length; i++)
-        {
-            if (IsOperator(input[i]))
-            {
-                string operand1 = myStack.Pop();
-                string operand2 = myStack.Pop();
+        string[] inputs = input.Trim().Split(' ');
+        Stack<string> myStack = new();
 
-                myStack.Push($"{input[i]}{operand2}{operand1}");
+        for (int i = 0; i < inputs.Length; i++)
+        {
+            if (IsOperator(inputs[i].Trim()))
+            {
+                string operand1 = myStack.Pop().Trim();
+                string operand2 = myStack.Pop().Trim();
+
+                myStack.Push($"{inputs[i]} {operand2} {operand1} ");
             }
             else
-                myStack.Push(input[i].ToString());
+                myStack.Push(inputs[i].ToString());
         }
-        return myStack.Pop();
+        return myStack.Pop().Trim();
     }
 
     public string ToInfix(string input)
     {
-        for (int i = 0; i < input.Length; i++)
-        {
-            if (IsOperator(input[i]))
-            {
-                string operand1 = myStack.Pop();
-                string operand2 = myStack.Pop();
+        string[] inputs = input.Trim().Split(' ');
+        Stack<string> myStack = new();
 
-                myStack.Push($"({operand2}{input[i]}{operand1})");
+        for (int i = 0; i < inputs.Length; i++)
+        {
+            if (IsOperator(inputs[i].Trim()))
+            {
+                string operand1 = myStack.Pop().Trim();
+                string operand2 = myStack.Pop().Trim();
+
+                myStack.Push($"({operand2}{inputs[i]}{operand1})");
             }
             else
-                myStack.Push(input[i].ToString());
+                myStack.Push(inputs[i].ToString());
         }
-        return myStack.Pop();
+        return myStack.Pop().Trim();
     }
 
     public string CalculateResult(string input)
@@ -55,6 +59,6 @@ public class Postfix : ConverterBase
                 myStack.Push(inputs[i]);
         }
 
-        return myStack.Pop();
+        return myStack.Pop().Trim();
     }
 }

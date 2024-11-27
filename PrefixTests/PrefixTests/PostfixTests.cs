@@ -10,9 +10,9 @@ public class PostfixToPrefixTests
     [TestMethod]
     public void PostfixToPrefix1()
     {
-        string input = "AB+CD-*";
+        string input = "A B + C D - *";
         var result = new Postfix().ToPrefix(input);
-        result.ShouldBe("*+AB-CD");
+        result.ShouldBe("* + A B - C D");
 
         Console.WriteLine($"Postfix: {input}");
         Console.WriteLine($"Prefix: {result}");
@@ -21,9 +21,9 @@ public class PostfixToPrefixTests
     [TestMethod]
     public void PostfixToPrefix2()
     {
-        string input = "abc*def+/g*-h*+";
+        string input = "a b c * d e f + / g * - h * +";
         var result = new Postfix().ToPrefix(input);
-        result.ShouldBe("+a*-*bc*/d+efgh");
+        result.ShouldBe("+ a * - * b c * / d + e f g h");
 
         Console.WriteLine($"Postfix: {input}");
         Console.WriteLine($"Prefix: {result}");
@@ -32,7 +32,7 @@ public class PostfixToPrefixTests
     [TestMethod]
     public void PostfixToInfix1()
     {
-        string input = "AB+CD-*";
+        string input = "A B + C D - *";
         var result = new Postfix().ToInfix(input);
         result.ShouldBe("((A+B)*(C-D))");
 
@@ -43,7 +43,7 @@ public class PostfixToPrefixTests
     [TestMethod]
     public void PostfixToInfix2()
     {
-        string input = "abc*def+/g*-h*+";
+        string input = "a b c * d e f + / g * - h * +";
         var result = new Postfix().ToInfix(input);
         result.ShouldBe("(a+(((b*c)-((d/(e+f))*g))*h))");
 
